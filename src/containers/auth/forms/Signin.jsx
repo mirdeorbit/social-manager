@@ -3,9 +3,9 @@ import SigninForm from "../../../components/auth/forms/Signin";
 
 class SigninFormContainer extends Component {
 
-    onSubmit(e) {
-        e.preventDefault();
-
+    onSubmit (data, callback) {
+        console.log(data);
+        callback();
     }
 
     render() {

@@ -1,43 +1,49 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import { Container, FormControl, InputLabel, OutlinedInput, Button } from "@material-ui/core";
 
 const SigninForm = ({ onSubmit, initialValues = {} }) => (
     <Formik
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
+        onSubmit={( values, { setSubmitting } ) => {
+            onSubmit(values, () => {
+                setSubmitting(false);
+            });
         }}
-    >
-        <Container maxWidth="sm">
-            <form onSubmit={onSubmit}>
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="signin-email">Email address</InputLabel>
-                    <OutlinedInput
-                        id="signin-email"
-                        name="email"
-                    />
-                </FormControl>
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="signin-password">Password</InputLabel>
-                    <OutlinedInput
-                        id="signin-password"
-                        type="password"
-                        name="password"
-                    />
-                </FormControl>
-                <FormControl margin="normal" fullWidth>
-                    <button
-                        color="inherit"
-                        type="submit"
-                    >
-                        Signin
-                    </button>
-                </FormControl>
-            </form>
-        </Container>
-    </Formik>
+        render={(props) => (
+            <Container maxWidth="sm">
+                <Form onSubmit={props.handleSubmit}>
+                    <FormControl margin="normal" fullWidth>
+                        <InputLabel htmlFor="signin-email">Email address</InputLabel>
+                        <OutlinedInput
+                            id="signin-email"
+                            name="email"
+                            onChange={props.handleChange}
+                        />
+                    </FormControl>
+                    <FormControl margin="normal" fullWidth>
+                        <InputLabel htmlFor="signin-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="signin-password"
+                            type="password"
+                            name="password"
+                            onChange={props.handleChange}
+                        />
+                    </FormControl>
+                    <FormControl margin="normal" fullWidth>
+                        <button
+                            color="inherit"
+                            type="submit"
+                            disabled={props.isSubmitting}
+                        >
+                            Signin
+                        </button>
+                    </FormControl>
+                </Form>
+            </Container>
+        )}
+    />
 );
 
 SigninForm.propTypes = {

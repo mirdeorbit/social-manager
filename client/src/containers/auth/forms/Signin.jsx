@@ -13,23 +13,23 @@ class SigninFormContainer extends Component {
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
-    onSubmit (data, callback) {
-        this.props.onSigninStart(data);
-        console.log(config);
+	onSubmit (data, callback) {
+		this.props.onSigninStart(data);
+		console.log(config);
 		post(config.api.baseUrl + '/auth/signin', {
 			crossDomain: true
 		}).then((res) => {
 			console.log(res);
 		})
-    }
+	}
 
-    render() {
-        return (
-            <SigninFormComponent
-                onSubmit={this.onSubmit}
-            />
-        );
-    };
+	render() {
+		return (
+			<SigninFormComponent
+				onSubmit={this.onSubmit}
+			/>
+		);
+	};
 }
 
 const mapStateToProps = (state) => ({

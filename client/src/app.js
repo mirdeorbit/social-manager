@@ -9,10 +9,10 @@ function App() {
 	const AuthComponent = auth(<h1>Helo World! </h1>);
 	//console.log(comp);
 	return (
-	    <Router>
-            <Header/>
+		<Router>
+			<Header/>
 			<AuthComponent/>
-        </Router>
+		</Router>
 	);
 }
 

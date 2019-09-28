@@ -5,12 +5,12 @@ import SigninFormContainer from "./forms/Signin";
 import SignupFormContainer from "./forms/Signup";
 
 const Auth = () => {
-    return (
-        <div>
-            <Route path="/signin" component={SigninFormContainer} />
-            <Route path="/signup" component={SignupFormContainer} />
-        </div>
-    );
+	return (
+		<div>
+			<Route path="/signin" component={SigninFormContainer} />
+			<Route path="/signup" component={SignupFormContainer} />
+		</div>
+	);
 };
 
 export default Auth;

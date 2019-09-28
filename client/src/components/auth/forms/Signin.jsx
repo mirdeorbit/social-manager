@@ -1,33 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik, Form } from "formik";
-import { Container, FormControl, InputLabel, OutlinedInput, Button } from "@material-ui/core";
+import { Container, FormControl, InputLabel, OutlinedInput, TextField } from "@material-ui/core";
 
 const SigninForm = ({ onSubmit, initialValues = {} }) => (
     <Formik
         initialValues={initialValues}
-        onSubmit={( values, { setSubmitting } ) => {
-            onSubmit(values, () => {
-                setSubmitting(false);
-            });
-        }}
+		onSubmit={( values, { setSubmitting } ) => {
+			onSubmit(values, () => {
+				setSubmitting(false);
+			});
+		}}
         render={(props) => (
             <Container maxWidth="sm">
                 <Form onSubmit={props.handleSubmit}>
                     <FormControl margin="normal" fullWidth>
-                        <InputLabel htmlFor="signin-email">Email address</InputLabel>
-                        <OutlinedInput
-                            id="signin-email"
-                            name="email"
-                            onChange={props.handleChange}
-                        />
+						<TextField
+							id="signin-email"
+							name="email"
+							label="Email"
+							onChange={props.handleChange}
+						/>
                     </FormControl>
                     <FormControl margin="normal" fullWidth>
-                        <InputLabel htmlFor="signin-password">Password</InputLabel>
-                        <OutlinedInput
+                        <TextField
                             id="signin-password"
                             type="password"
                             name="password"
+							label="Password"
                             onChange={props.handleChange}
                         />
                     </FormControl>

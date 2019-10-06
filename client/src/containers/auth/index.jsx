@@ -7,8 +7,8 @@ import SignupFormContainer from "./forms/Signup";
 const Auth = () => {
 	return (
 		<div>
-			<Route path="/signin" component={SigninFormContainer} />
-			<Route path="/signup" component={SignupFormContainer} />
+			<Route exact path="/signin" component={SigninFormContainer} />
+			<Route exact path="/signup" component={SignupFormContainer} />
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Container, FormControl, InputLabel, OutlinedInput} from "@material-ui/core";
+import { Button, Container, FormControl, InputLabel, OutlinedInput } from "@material-ui/core";
 
 const SignupForm = () => (
 	<Container maxWidth="sm">

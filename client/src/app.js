@@ -4,9 +4,10 @@ import 'typeface-roboto';
 
 import auth from './hocs/auth';
 import Header from './components/layout/Header';
+import Main from './containers/main';
 
 function App() {
-	const AuthComponent = auth(<h1>Helo World! </h1>);
+	const AuthComponent = auth(Main);
 	//console.log(comp);
 	return (
 		<Router>

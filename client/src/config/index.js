@@ -1,7 +1,5 @@
 import developmentConfig from "./development";
 
-console.log(developmentConfig)
-
 const configs = {
 	development: developmentConfig()
 };

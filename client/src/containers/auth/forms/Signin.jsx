@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { post } from 'axios';
-import config from '../../../config';
 
 import SigninFormComponent from '../../../components/auth/forms/Signin';
-import { signinStart, signinSuccess } from '../../../actions/auth';
+import { signin } from '../../../data/actionCreators/auth';
 
 class SigninFormContainer extends Component {
-
 	constructor() {
 		super();
 		this.onSubmit = this.onSubmit.bind(this);
+		this.redirectToApp = this.redirectToApp.bind(this);
+	}
+
+	redirectToApp() {
+		this.props.history.push('/');
 	}
 
 	onSubmit (data, callback) {
-		this.props.onSigninStart(data);
-		console.log(config);
-		post(config.api.baseUrl + '/auth/signin', {
-			crossDomain: true
-		}).then((res) => {
-			console.log(res);
-		})
+		this.props.dispatch(signin(data, this.redirectToApp));
+		callback();
 	}
 
 	render() {
@@ -36,18 +34,9 @@ const mapStateToProps = (state) => ({
 	currentUser: state.currentUser
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	onSigninStart: (params) => {
-		dispatch(signinStart(params));
-	},
-	onSigninSuccess: (params) => {
-		dispatch(signinSuccess(params));
-	}
-});
-
-const SigninForm = connect(
+const SigninForm = withRouter(connect(
 	mapStateToProps,
-	mapDispatchToProps
-)(SigninFormContainer);
+	null
+)(SigninFormContainer));
 
 export default SigninForm;

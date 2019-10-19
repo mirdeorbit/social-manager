@@ -1,4 +1,4 @@
-let config = {
+const config = {
 	mongodb: {
 		url: 'mongodb://127.0.0.1:27017/social-manager',
 		options: {
@@ -9,6 +9,7 @@ let config = {
 			reconnectInterval: 1000
 		}
 	},
+	clientBaseUrl: 'http://localhost:3000',
 	listen: {
 		api: {
 			hostname: '127.0.0.1',
@@ -17,8 +18,11 @@ let config = {
 	},
 	socials: {
 		vk: {
-			appId: '12345',
-			appSecret: 'sddfddd'
+			clientID: '7162533',
+			clientSecret: '3ce8buBEy4uoX3Hxe4Ro',
+			authorizationURL: 'https://oauth.vk.com/authorize',
+			tokenURL: 'https://oauth.vk.com/access_token',
+			callbackURL: 'http://127.0.0.1:3002/auth/socials/vk/callback'
 		}
 	}
 };

@@ -1,10 +1,13 @@
 import _ from 'underscore';
+import qs from 'qs';
 import React, { Component } from 'react';
-import { get } from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 import Auth from '../containers/auth';
 import { checkAuth } from '../data/actionCreators/auth';
+
+import * as AuthPropTypes from '../data/propTypes/auth';
 
 function withAuth(WrappedComponent) {
 	class AuthenticatedContainer extends Component {
@@ -19,10 +22,26 @@ function withAuth(WrappedComponent) {
 			this.props.history.push('/signin');
 		}
 
-		componentDidMount() {
-			this.props.dispatch(checkAuth({
-				token: '91ac2bze416ert917op0eq1e3'
-			}, this.redirectToLogin));
+		componentWillMount() {
+			let token;
+			const query = qs.parse(window.location.href.split('?')[1]);
+
+			if (query.token) {
+				token = query.token;
+				localStorage.setItem('currentUserToken', token);
+			} else {
+				token = localStorage.getItem('currentUserToken');
+			}
+
+			console.log('auth token >>> ', token);
+			if (!token) {
+				console.log('redirect');
+				this.redirectToLogin()
+			} else {
+				this.props.dispatch(checkAuth({
+					token: token
+				}, this.redirectToLogin));
+			}
 		}
 
 		render() {
@@ -38,6 +57,14 @@ function withAuth(WrappedComponent) {
 			);
 		}
 	}
+
+	AuthenticatedContainer.propTypes = {
+		currentUser: AuthPropTypes.User
+	};
+
+	AuthenticatedContainer.defaultProps = {
+		currentUser: null
+	};
 
 	const mapStateToProps = (state) => ({
 		currentUser: state.currentUser

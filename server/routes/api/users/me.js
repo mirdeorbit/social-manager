@@ -1,12 +1,21 @@
 const db = require('../../../db');
 
 module.exports = (router) => {
-	const user = {
-		email: 'john@smith.com',
-		token: '91ac2bze416ert917op0eq1e3'
-	};
-
 	router.get('/me', async (req, res, next) => {
-		res.json(null);
+		if (!req.query.token) {
+			throw new Error('User token is required')
+		}
+
+		try {
+			const user = await db.users.findOne({token: req.query.token});
+
+			if (user) {
+				res.json(user);
+			} else {
+				throw new Error('User not found')
+			}
+		} catch(err) {
+			throw err;
+		}
 	})
 };

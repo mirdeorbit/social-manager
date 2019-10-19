@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik, Form } from 'formik';
-import { Container, FormControl, TextField } from '@material-ui/core';
+import {Formik, Form, Field} from 'formik';
+import { Container, FormControl, TextField, Link } from '@material-ui/core';
 import * as Yup from "yup";
 
 const SigninSchema = Yup.object().shape({
@@ -20,26 +20,37 @@ const SigninForm = ({ onSubmit, initialValues = {} }) => (
 			});
 		}}
 	>
-		{({ errors, handleSubmit, handleChange, touched, isSubmitting }) => (
+		{({ errors, handleSubmit, isSubmitting }) => (
 			<Container maxWidth='sm'>
 				<Form onSubmit={handleSubmit}>
 					<FormControl margin='normal' fullWidth>
-						<TextField
-
-							id='signin-email'
+						<Field
 							name='email'
-							label='Email'
-							onChange={handleChange}
+							render={({ field }) => (
+								<TextField
+									id='signin-email'
+									name='email'
+									label='Email'
+									onChange={field.onChange}
+									value={field.value || ''}
+								/>
+							)}
 						/>
 						{errors.email ? <div>{errors.email}</div> : null}
 					</FormControl>
 					<FormControl margin='normal' fullWidth>
-						<TextField
-							id='signin-password'
-							type='password'
+						<Field
 							name='password'
-							label='Password'
-							onChange={handleChange}
+							render={({ field }) => (
+								<TextField
+									id='signin-password'
+									type='password'
+									name='password'
+									label='Password'
+									onChange={field.onChange}
+									value={field.value || ''}
+								/>
+							)}
 						/>
 					</FormControl>
 					<FormControl margin='normal' fullWidth>
@@ -50,6 +61,14 @@ const SigninForm = ({ onSubmit, initialValues = {} }) => (
 						>
 							Signin
 						</button>
+					</FormControl>
+
+					<FormControl margin='normal' fullWidth>
+						<Link
+							href='http://127.0.0.1:3002/auth/socials/vk/login'
+						>
+							Login VK
+						</Link>
 					</FormControl>
 				</Form>
 			</Container>

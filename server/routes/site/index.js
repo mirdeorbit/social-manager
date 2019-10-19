@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const _ = require('underscore');
 
@@ -6,7 +8,7 @@ const router = express.Router({mergeParams: true});
 exports.router = router;
 
 const routes = [
-	'auth', 'schedules', 'users'
+	'auth'
 ];
 
 _(routes).each((name) => {

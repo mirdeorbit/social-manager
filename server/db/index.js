@@ -1,7 +1,7 @@
 const Client = require('mongodb').MongoClient;
 const _ = require('underscore');
 
-const collections = ['schedules'];
+const collections = ['schedules', 'users'];
 
 exports.embedders = {};
 exports.collections = {};

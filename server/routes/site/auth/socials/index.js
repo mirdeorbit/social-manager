@@ -6,11 +6,9 @@ const router = express.Router({mergeParams: true});
 exports.router = router;
 
 const routes = [
-	'auth', 'schedules', 'users'
+	'vk'
 ];
 
 _(routes).each((name) => {
-	const resource = require('./' + name);
-	const path = resource.path || '/' + name;
-	router.use(path, resource.router);
+	require('./' + name)(router);
 });

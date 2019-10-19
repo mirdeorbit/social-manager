@@ -12,7 +12,9 @@ class SigninFormContainer extends Component {
 		this.redirectToApp = this.redirectToApp.bind(this);
 	}
 
-	redirectToApp() {
+	redirectToApp(token) {
+		console.log(token);
+		localStorage.setItem('currentUserToken', token);
 		this.props.history.push('/');
 	}
 

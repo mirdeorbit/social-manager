@@ -7,6 +7,9 @@ const baseConfig = {
 	env,
 	api: {
 		baseUrl: 'http://127.0.0.1:3002/api'
+	},
+	site: {
+		baseUrl: 'http://127.0.0.1:3002'
 	}
 };
 

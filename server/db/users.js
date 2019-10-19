@@ -1,7 +1,7 @@
 var Collection = require('mongodbext').Collection;
 
 exports.create = function(db) {
-	exports.collection = new Collection(db, 'schedules', {
+	exports.collection = new Collection(db, 'users', {
 		changeDataMethods: [
 			'insertOne',
 			'updateOne', 'findOneAndUpdate', 'updateMany'

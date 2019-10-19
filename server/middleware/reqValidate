@@ -1,0 +1,28 @@
+const validate = require('../utils/validate');
+const _ = require('underscore');
+
+module.exports = function() {
+	return (req, res, next) => {
+		req.validate = (schema, options) => {
+			options = _({}).defaults(options, {
+				reqFields: ['params', 'query', 'body'],
+				conform: (val, obj, prop) => {
+					return prop === '_';
+				}
+			});
+
+			 const data = _(options.reqFields).reduce(function(data, field) {
+				return _(data).extend(req[field]);
+			}, {});
+
+			validate(data, {
+				type: 'object',
+				properties: schema
+			}, options);
+
+			return data;
+		};
+
+		next();
+	};
+};

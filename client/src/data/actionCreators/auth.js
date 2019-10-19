@@ -13,8 +13,8 @@ export const currentUserGetSuccess = (currentUser) => {
 	return { type: CURRENT_USER_GET_SUCCESS, currentUser };
 };
 
-export const currentUserGetError = (currentUser) => {
-	return { type: CURRENT_USER_GET_ERROR, currentUser };
+export const currentUserGetError = (error) => {
+	return { type: CURRENT_USER_GET_ERROR, error };
 };
 
 export const signin = (params, redirectToApp) => {
@@ -22,7 +22,7 @@ export const signin = (params, redirectToApp) => {
 		dispatch(currentUserGetStart());
 		post(config.api.baseUrl + '/auth/signin', params).then((res) => {
 			dispatch(currentUserGetSuccess(res.data));
-			redirectToApp();
+			redirectToApp(res.data.token);
 		}, (err) => {
 			dispatch(currentUserGetError(err));
 		});
@@ -32,14 +32,13 @@ export const signin = (params, redirectToApp) => {
 export const checkAuth = (params, redirectToLogin) => {
 	return (dispatch) => {
 		dispatch(currentUserGetStart(params));
-		get(config.api.baseUrl + '/users/me').then((res) => {
+		get(`${config.api.baseUrl}/users/me?token=${params.token}`).then((res) => {
 			dispatch(currentUserGetSuccess(res.data));
-			console.log(res.data);
 			if (!res.data) {
 				redirectToLogin();
 			}
-		}, (err) => {
-			dispatch(currentUserGetError(err));
+		}, (error) => {
+			dispatch(currentUserGetError(error));
 		});
 	}
 };

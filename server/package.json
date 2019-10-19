@@ -11,15 +11,17 @@
   "dependencies": {
     "body-parser": "1.19.0",
     "config": "3.2.2",
+    "conform": "^0.2.16",
     "cors": "2.8.5",
-    "easyvk": "^2.5.1",
-    "express": "^4.17.1",
+    "easyvk": "2.5.1",
+    "express": "4.17.1",
     "mongodb": "2.2.35",
     "mongodbext": "2.2.4",
     "morgan": "1.9.1",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.1",
-    "underscore": "1.9.1",
-    "vksdk": "^5.3.2"
+    "passport": "^0.4.0",
+    "passport-vkontakte": "^0.3.2",
+    "react": "16.10.1",
+    "react-dom": "16.10.1",
+    "underscore": "1.9.1"
   }
 }

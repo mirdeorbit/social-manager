@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import {
 	SCHEDULES_FETCH_SUCCESS,
 	SCHEDULE_GET_SUCCESS,
@@ -16,7 +17,7 @@ const schedules = (state = null, action) => {
 const schedule = (state = null, action) => {
 	switch (action.type) {
 		case SCHEDULE_GET_SUCCESS:
-			return action.payload;
+			return _(action.payload).omit('createDate', 'updateDate');
 		case SCHEDULE_RESET:
 			return null;
 		default:

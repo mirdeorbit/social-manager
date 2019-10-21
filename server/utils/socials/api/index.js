@@ -1,5 +1,11 @@
-// var EasyVk = require('easyvk');
-// var config = require('config');
+const VkApi = require('./vk');
 
-exports.init = () => {
+const apis = {};
+
+exports.initialize = () => {
+	apis.vk = new VkApi();
+
+	console.log(apis.vk.getGroup)
 };
+
+exports.apis = apis;

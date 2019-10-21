@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import EditFormComponent from '../../../components/schedule/form';
+import ScheduleFormComponent from '../../../components/schedule/form';
 import { scheduleGet } from '../../../data/actionCreators/schedules';
 import { schedulePatch, scheduleReset } from '../../../data/actionCreators/schedules';
 
@@ -9,14 +9,17 @@ class ScheduleEditFormContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this);
-		this.onSourceGroupChange = this.onSourceGroupChange.bind(this);
+		this.onTimeTypeChange = this.onTimeTypeChange.bind(this);
+		this.onChangeFromMomentDate = this.onChangeFromMomentDate.bind(this);
 
 		this.state = {
-			schedule: {}
+			schedule: {},
+			showCalendar: false
 		};
 	}
 
 	componentDidMount() {
+		console.log(new Date().toISOString().split('.')[0]);
 		const { match, dispatch } = this.props;
 		dispatch(scheduleGet(match.params.id));
 	}
@@ -25,27 +28,37 @@ class ScheduleEditFormContainer extends Component {
 		this.props.dispatch(scheduleReset());
 	}
 
-	onSubmit(data, callback) {
-		const { match, dispatch } = this.props;
-		dispatch(schedulePatch(match.params.id, data));
-		callback();
+	onTimeTypeChange(event) {
+		this.setState({
+			showCalendar: event.target.value === 'fromMoment'
+		})
 	}
 
-	onSourceGroupChange(event) {
-		this.setState({schedule: {
-			...this.props.schedule,
-			sourceGroup: event.target.value
-		}})
+	onChangeFromMomentDate(value) {
+		this.setState({
+			fromMomentDate: value
+		});
+	}
+
+	onSubmit(data, callback) {
+		const { match, dispatch } = this.props;
+		console.log(data);
+		// dispatch(schedulePatch(match.params.id, data));
+		callback();
 	}
 
 	render() {
 		const { schedule } = this.props;
+		const { showCalendar, fromMomentDate } = this.state;
 
 		return  (
-			<EditFormComponent
+			<ScheduleFormComponent
 				schedule={schedule}
+				showCalendar={showCalendar}
 				onSubmit={this.onSubmit}
-				onSourceGroupChange={this.onSourceGroupChange}
+				onTimeTypeChange={this.onTimeTypeChange}
+				onChangeFromMomentDate={this.onChangeFromMomentDate}
+				fromMomentDate={fromMomentDate}
 			/>
 		)
 	}

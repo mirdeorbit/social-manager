@@ -18,12 +18,19 @@ const config = {
 	},
 	socials: {
 		vk: {
-			clientID: '7162533',
-			clientSecret: '3ce8buBEy4uoX3Hxe4Ro',
-			authorizationURL: 'https://oauth.vk.com/authorize',
-			tokenURL: 'https://oauth.vk.com/access_token',
-			callbackURL: 'http://127.0.0.1:3002/auth/socials/vk/callback'
-		}
+			app: {
+				clientID: '7162533',
+				clientSecret: '3ce8buBEy4uoX3Hxe4Ro',
+				authorizationURL: 'https://oauth.vk.com/authorize',
+				tokenURL: 'https://oauth.vk.com/access_token',
+				callbackURL: 'http://127.0.0.1:3002/auth/socials/vk/callback'
+			},
+			api: {
+				baseUrl: 'https://api.vk.com/method',
+				version: '5.102'
+			}
+
+		},
 	}
 };
 

@@ -18,7 +18,7 @@ const ScheduleList = ({ items, createHandleClick }) => {
 				{items.map(item => {
 					return (
 						<ListItem button onClick={createHandleClick(item._id)} key={item._id}>
-							<ListItemText id={item._id} primary={`Репост из ${item.sourceGroup} в ${item.targetGroup}`} />
+							<ListItemText id={item._id} primary={`Репост из ${item.source} в ${item.target}`} />
 							<ListItemSecondaryAction>
 								<IconButton edge="end" aria-label="comments">
 									<DeleteIcon />

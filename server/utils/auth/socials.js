@@ -4,12 +4,16 @@ const VkontakteStrategy = require('passport-vkontakte').Strategy;
 const config = require('config');
 const db = require('../../db');
 
-passport.serializeUser(function(user, done) {
-	done(null, user);
+passport.serializeUser((user, done) => {
+	done(null, user._id);
 });
 
-passport.deserializeUser(function(user, done) {
-	done(null, user);
+passport.deserializeUser((id, done) => {
+	db.users.findOne({_id: id}).then((user) => {
+		done(user);
+	}, (err) => {
+		throw err;
+	})
 });
 
 const vkProfileToUser = (profile, accessToken, refreshToken) => {
@@ -28,7 +32,7 @@ const vkProfileToUser = (profile, accessToken, refreshToken) => {
 };
 
 exports.init = function () {
-	passport.use(new VkontakteStrategy(config.get('socials.vk'),
+	passport.use(new VkontakteStrategy(config.get('socials.vk.app'),
 		function(accessToken, refreshToken, params, profile, done) {
 			db.users.findOne({'socials.vk.id': profile.id}).then((user) => {
 				var userData = vkProfileToUser(profile, accessToken, refreshToken);

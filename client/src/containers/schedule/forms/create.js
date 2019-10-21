@@ -1,38 +1,35 @@
-import React, {Component} from 'react';
-import ScheduleForm from '../../components/schedule/form';
-import { post } from 'axios';
-import config from '../../config';
+import React, { Component } from 'react';
+import ScheduleFormComponent from '../../../components/schedule/form';
+import { scheduleCreate } from '../../../data/actionCreators/schedules';
+import { connect } from 'react-redux';
 
-class ScheduleContainer extends Component {
+class ScheduleCreateFormContainer extends Component {
 
 	constructor() {
 		super();
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
-	onSubmit (data, callback) {
+	onSubmit(data, callback) {
 		console.log(data);
-		post(config.api.baseUrl + '/schedules', data).then((res) => {
-			callback();
-		}, (err) => {
-			throw err;
-			callback();
-		});
+		const { dispatch } = this.props;
+		dispatch(scheduleCreate(data));
+		callback();
 	}
 
 	render() {
 		return (
-			<ScheduleForm
+			<ScheduleFormComponent
 				onSubmit={this.onSubmit}
 			/>
 		)
 	}
-};
+}
 
-ScheduleContainer.propTypes = {};
+ScheduleCreateFormContainer.propTypes = {};
 
-ScheduleContainer.defaultProps = {
+ScheduleCreateFormContainer.defaultProps = {
 	schedule: {}
 };
 
-export default ScheduleContainer;
+export default connect()(ScheduleCreateFormContainer);

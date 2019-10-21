@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const db = require('../../../db');
 
 module.exports = (router) => {
@@ -5,7 +6,7 @@ module.exports = (router) => {
 		var result;
 		try {
 			result = await db.schedules.findOne({_id: parseInt(req.params._id)});
-			res.json(result);
+			res.json(_(result).omit('createDate', 'updateDate', 'sourceExtended', 'targetExtended'));
 		} catch(err) {
 			throw err;
 		}

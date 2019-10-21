@@ -4,14 +4,25 @@ const passport = require('passport');
 const morgan = require('morgan');
 const config = require('config');
 
-const db = require('./db');
 var bodyParser = require('body-parser');
-var apiRouter = require('./routes/api');
-var siteRouter = require('./routes/site');
-var socialApi = require('./utils/socials/api');
+
+const db = require('./db');
+
+var ensureUser = require('./middleware/ensureUser');
+var reqValidate = require('./middleware/reqValidate');
+
+var socialsApi = require('./utils/socials/api');
 var socialsAuth = require('./utils/auth/socials');
 
-var reqValidate = require('./middleware/reqValidate');
+var apiRouter = require('./routes/api');
+var siteRouter = require('./routes/site');
+
+var sessionParams = {
+	secret: '1ac2e899cd1e1aac4819',
+	proxy: true,
+	resave: true,
+	saveUninitialized: true
+};
 
 const createApp = () => {
 	const app = express();
@@ -23,7 +34,6 @@ const createApp = () => {
 
 	const corsOptions = {
 		origin: (origin, callback) => {
-			console.log(origin);
 			if (!origin || whitelist.indexOf(origin) !== -1) {
 				callback(null, true)
 			} else {
@@ -33,18 +43,20 @@ const createApp = () => {
 	};
 
 	app.use(passport.initialize());
-	app.use(passport.session());
+	app.use(passport.session(sessionParams));
 
 	app.use(bodyParser.json());
 	app.use(morgan('combined'));
 	app.use(cors(corsOptions));
 	app.use(reqValidate());
 
+	app.use(ensureUser());
+
+	socialsApi.initialize();
+	socialsAuth.init();
+
 	app.use('/', siteRouter.router);
 	app.use('/api', apiRouter.router);
-
-	socialsAuth.init();
-	socialApi.init();
 
 	return app;
 };

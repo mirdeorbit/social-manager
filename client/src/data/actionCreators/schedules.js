@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import { get, post, patch } from 'axios';
 import config from '../../config';
 
@@ -55,10 +56,12 @@ export const scheduleGet = (id) => {
 	}
 };
 
-export const scheduleCreate = () => {
+export const scheduleCreate = (data) => {
 	return (dispatch) => {
 		dispatch(scheduleSaveStart());
-		post(`${config.api.baseUrl}/schedules`).then((res) => {
+		const token = localStorage.getItem('currentUserToken');
+		data = _({token: token}).defaults(data);
+		post(`${config.api.baseUrl}/schedules`, data).then((res) => {
 			dispatch(scheduleSaveSuccess(res.data));
 		});
 	}
@@ -67,6 +70,8 @@ export const scheduleCreate = () => {
 export const schedulePatch = (id, data) => {
 	return (dispatch) => {
 		dispatch(scheduleSaveStart());
+		const token = localStorage.getItem('currentUserToken');
+		data = _({token: token}).defaults(data);
 		patch(`${config.api.baseUrl}/schedules/${id}`, data).then((res) => {
 			dispatch(scheduleSaveSuccess(res.data));
 		});

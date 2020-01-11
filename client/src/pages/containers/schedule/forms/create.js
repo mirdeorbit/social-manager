@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ScheduleFormComponent from '../../../components/schedule/form';
-import { scheduleCreate } from '../../../data/actionCreators/schedules';
+import { scheduleCreate } from '../../../../data/actionCreators/schedules';
 import { connect } from 'react-redux';
 
 class ScheduleCreateFormContainer extends Component {

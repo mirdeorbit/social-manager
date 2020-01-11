@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SigninFormComponent from '../../../components/auth/forms/Signin';
-import { signin } from '../../../data/actionCreators/auth';
+import { signin } from '../../../../data/actionCreators/auth';
 
 class SigninFormContainer extends Component {
 	constructor() {

@@ -12,10 +12,15 @@ class VkApi {
 		const url = `${this.apiBaseUrl}/groups.getById?access_token=${accessToken}&v=${this.apiVersion}`;
 		const requestParams = {
 			url: url,
-			body: `group_id=${groupId}`
+			body: `group_ids=${groupId}`
 		};
 		let data = await request.post(requestParams);
 		data = JSON.parse(data);
+
+		if (data.error) {
+			console.log(data.error);
+		}
+
 		return !data.error ? data.response.length && data.response[0] : null;
 	}
 
@@ -27,6 +32,11 @@ class VkApi {
 		};
 		let data = await request.post(requestParams);
 		data = JSON.parse(data);
+
+		if (data.error) {
+			console.log(data.error);
+		}
+
 		return !data.error ? data.response.length && data.response[0] : null;
 	}
 

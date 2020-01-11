@@ -14,6 +14,7 @@
     "conform": "^0.2.16",
     "cookie-parser": "1.4.4",
     "cors": "2.8.5",
+    "cron": "^1.7.2",
     "easyvk": "2.5.1",
     "express": "4.17.1",
     "express-session": "1.17.0",

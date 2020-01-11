@@ -3,8 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import 'typeface-roboto';
 
 import auth from './hocs/auth';
-import Header from './components/layout/Header';
-import Main from './containers/main';
+import Header from './pages/components/layout/Header';
+import Main from './pages/containers/main';
 
 function App() {
 	const AuthComponent = auth(Main);

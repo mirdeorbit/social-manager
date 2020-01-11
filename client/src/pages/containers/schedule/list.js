@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import config from '../../config';
+import config from '../../../config';
 import ScheduleListComponent from '../../components/schedule/list';
-import { schedulesFetch } from '../../data/actionCreators/schedules';
+import { schedulesFetch } from '../../../data/actionCreators/schedules';
 
 class ScheduleListContainer extends Component {
 

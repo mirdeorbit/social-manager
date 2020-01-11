@@ -14,6 +14,21 @@ var validationRules = {
 	target: {
 		type: 'string',
 		required: true
+	},
+	firstPublication:{
+		type: 'object',
+		properties: {
+			type: {
+				type: 'string',
+				enum: ['last', 'fromMoment']
+			},
+			lastCount: {
+				type: 'integer'
+			},
+			fromMomentDate: {
+				type: 'date'
+			}
+		}
 	}
 };
 

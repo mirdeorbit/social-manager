@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import Auth from '../containers/auth';
+import Auth from '../pages/containers/auth';
 import { checkAuth } from '../data/actionCreators/auth';
 
 import * as AuthPropTypes from '../data/propTypes/auth';
@@ -33,9 +33,7 @@ function withAuth(WrappedComponent) {
 				token = localStorage.getItem('currentUserToken');
 			}
 
-			console.log('auth token >>> ', token);
 			if (!token) {
-				console.log('redirect');
 				this.redirectToLogin()
 			} else {
 				this.props.dispatch(checkAuth({

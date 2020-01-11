@@ -27,7 +27,7 @@ const config = {
 			},
 			api: {
 				baseUrl: 'https://api.vk.com/method',
-				version: '5.102'
+				version: '5.103'
 			}
 
 		},

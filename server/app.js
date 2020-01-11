@@ -8,16 +8,18 @@ var bodyParser = require('body-parser');
 
 const db = require('./db');
 
-var ensureUser = require('./middleware/ensureUser');
-var reqValidate = require('./middleware/reqValidate');
+const jobs = require('./utils/jobs');
 
-var socialsApi = require('./utils/socials/api');
-var socialsAuth = require('./utils/auth/socials');
+const ensureUser = require('./middleware/ensureUser');
+const reqValidate = require('./middleware/reqValidate');
 
-var apiRouter = require('./routes/api');
-var siteRouter = require('./routes/site');
+const socialsApi = require('./utils/socials/api');
+const socialsAuth = require('./utils/auth/socials');
 
-var sessionParams = {
+const apiRouter = require('./routes/api');
+const siteRouter = require('./routes/site');
+
+const sessionParams = {
 	secret: '1ac2e899cd1e1aac4819',
 	proxy: true,
 	resave: true,
@@ -57,6 +59,8 @@ const createApp = () => {
 
 	app.use('/', siteRouter.router);
 	app.use('/api', apiRouter.router);
+
+	jobs.init();
 
 	return app;
 };

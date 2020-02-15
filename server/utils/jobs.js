@@ -1,10 +1,7 @@
 const _ = require('underscore');
 var CronJob = require('cron').CronJob;
 
-const jobs = [{
-    name: 'repost',
-    schedule: '*/10 * * * * *'
-}];
+const jobs = [];
 
 exports.init = function () {
     var jobsResult = {};

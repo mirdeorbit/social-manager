@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        title = 'Ожидание редиректа'
+        script(
+            src='https://code.jquery.com/jquery-3.4.1.min.js'
+            integrity='sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo='
+            crossorigin='anonymous'
+        )
+        script.
+            const clientUrl = '#{clientUrl}';
+
+            let hash = window.location.hash.split('#')[1];
+            hash = hash.split('&');
+            const params = {};
+            hash.forEach(function(param) {
+                param = param.split('=');
+                params[param[0]] = param[1];
+            });
+
+            $.ajax({
+                type: 'post',
+                data: JSON.stringify(params),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                url: '/auth/socials/vk/postUser',
+                success: function (data) {
+                    window.location.href = `${clientUrl}?token=${data.token}`;
+                },
+                error: function (err) {
+                    throw err;
+                }
+            })
+
+    body
+        h2 Пожалуйста, дождитесь перенаправления

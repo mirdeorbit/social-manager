@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const db = require('../../../db');
 const socialsHelpers = require('../../../utils/helpers').socials;
+const ensureUser = require('../../../middleware/ensureUser');
 
 var validationRules = {
 	_id: {
@@ -36,7 +37,9 @@ module.exports = (router) => {
 	router.patch('/:_id', async (req, res, next) => {
 		var params = req.validate(validationRules);
 
-		let patchData = _({}).extend(params);
+		let patchData = _({
+			user: _(req.user).pick('_id', 'fullName')
+		}).extend(params);
 
 		try {
 			patchData.sourceExtended =

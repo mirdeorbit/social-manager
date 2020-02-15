@@ -14,7 +14,6 @@ const ensureUser = require('./middleware/ensureUser');
 const reqValidate = require('./middleware/reqValidate');
 
 const socialsApi = require('./utils/socials/api');
-const socialsAuth = require('./utils/auth/socials');
 
 const apiRouter = require('./routes/api');
 const siteRouter = require('./routes/site');
@@ -29,20 +28,18 @@ const sessionParams = {
 const createApp = () => {
 	const app = express();
 
-	const whitelist = [
-		'http://localhost:3000',
-		'http://localhost:3002'
-	];
-
 	const corsOptions = {
 		origin: (origin, callback) => {
-			if (!origin || whitelist.indexOf(origin) !== -1) {
+			if (!origin || config.whiteList.indexOf(origin) !== -1) {
 				callback(null, true)
 			} else {
 				callback(new Error('Not allowed by CORS'))
 			}
 		}
 	};
+
+	app.set('view engine', 'pug');
+	app.set('views','./views');
 
 	app.use(passport.initialize());
 	app.use(passport.session(sessionParams));
@@ -55,12 +52,11 @@ const createApp = () => {
 	app.use(ensureUser());
 
 	socialsApi.initialize();
-	socialsAuth.init();
+
+	jobs.init();
 
 	app.use('/', siteRouter.router);
 	app.use('/api', apiRouter.router);
-
-	jobs.init();
 
 	return app;
 };

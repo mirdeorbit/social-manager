@@ -40,6 +40,38 @@ class VkApi {
 		return !data.error ? data.response.length && data.response[0] : null;
 	}
 
+	async getWallPosts(accessToken, params) {
+		const url = `${this.apiBaseUrl}/wall.get?access_token=${accessToken}&v=${this.apiVersion}`;
+		const requestParams = {
+			url: url,
+			body: `owner_id=${params.ownerId}&count=${params.count || 20}`
+		};
+		let data = await request.post(requestParams);
+		data = JSON.parse(data);
+
+		if (data.error) {
+			console.log(data.error);
+		}
+
+		return !data.error && data.response ? data.response : null;
+	}
+
+	async makeRepost(accessToken, postKey, groupId) {
+		const url = `${this.apiBaseUrl}/wall.repost?access_token=${accessToken}&v=${this.apiVersion}`;
+		const requestParams = {
+			url: url,
+			body: `object=${postKey}&group_id=${groupId}`
+		};
+		let data = await request.post(requestParams);
+		data = JSON.parse(data);
+
+		if (data.error) {
+			console.log(data.error);
+		}
+
+		return !data.error && data.response ? data.response : null;
+	}
+
 }
 
 module.exports = VkApi;

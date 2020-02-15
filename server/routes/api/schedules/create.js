@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const db = require('../../../db');
 const socialsHelpers = require('../../../utils/helpers').socials;
+const ensureUser = require('../../../middleware/ensureUser');
 
 var validationRules = {
 	source: {
@@ -14,9 +15,11 @@ var validationRules = {
 };
 
 module.exports = (router) => {
-	router.post('/', async (req, res) => {
+	router.post('/', ensureUser(), async (req, res) => {
 		var params = req.validate(validationRules);
-		let createData = _({}).extend(params);
+		let createData = _({
+			user: _(req.user).pick('_id', 'fullName')
+		}).extend(params);
 
 		try {
 			createData.sourceExtended =

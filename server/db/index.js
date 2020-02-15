@@ -1,12 +1,13 @@
 const Client = require('mongodb').MongoClient;
 const _ = require('underscore');
 
-const collections = ['schedules', 'users'];
+const collections = ['schedules', 'users', 'reposts'];
 
 exports.embedders = {};
 exports.collections = {};
 
 exports.init = async (params) => {
+	console.log(params);
 	if (params.config) {
 		const db = await Client.connect(params.config.url, params.config.options);
 
